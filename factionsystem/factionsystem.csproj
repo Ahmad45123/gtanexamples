@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminCommands.cs" />
     <Compile Include="CheckForCommandPerm.cs" />
     <Compile Include="FactionCommandAttribute.cs" />
     <Compile Include="Db\DbModels.cs" />
