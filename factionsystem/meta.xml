@@ -1,0 +1,9 @@
+﻿<meta>
+	<info name="factionsystem" description="Simple Faction System." author="Ahmed Mamdouh" type="gamemode" />
+	
+  <!-- Server Side Stuff: -->
+  <script src="bin/Debug/factionsystem.dll" type="server" lang="compiled" />
+
+  <!-- Client Side Stuff: -->
+	
+</meta>
