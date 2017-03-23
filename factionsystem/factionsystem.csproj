@@ -57,8 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckForCommandPerm.cs" />
+    <Compile Include="FactionCommandAttribute.cs" />
     <Compile Include="Db\DbModels.cs" />
     <Compile Include="Db\FactionsDbContext.cs" />
+    <Compile Include="FactionCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

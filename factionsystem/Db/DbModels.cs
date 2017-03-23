@@ -32,4 +32,6 @@ namespace factionsystem.Db
         // This will keep track of the faction this division belongs too
         public virtual Faction Faction { get; set; }
     }
+
+
 }
