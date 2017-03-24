@@ -15,9 +15,6 @@ namespace factionsystem.Db
         public int FactionId { get; set; }
         public string FactionName { get; set; }
 
-        //Since EF doesn't support lists, we will have to do some manual work.
-        public string Commands { get; set; }
-
         //This is to mantain that divisions are related to this.
         public virtual ICollection<Division> Divisions { get; set; }
     }
