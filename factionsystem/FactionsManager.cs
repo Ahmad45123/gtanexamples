@@ -41,6 +41,7 @@ namespace factionsystem
                     else
                         API.sendChatMessageToPlayer(sender, "Faction with that name already exists.");
                     break;
+
                 case "EditFaction":
                     var oldName = (string)arguments[0];
                     var newName = (string)arguments[1];
@@ -54,12 +55,45 @@ namespace factionsystem
                     else
                         API.sendChatMessageToPlayer(sender, "Faction with that name already exists.");
                     break;
+
                 case "getDivsForFaction":
-                    var divFac = dbContext.Factions.Single(x => x.FactionName == (string)arguments[0]);
+                    var getDivFac = (string) arguments[0];
+                    var divFac = dbContext.Factions.Single(x => x.FactionName == getDivFac);
                     string[] divs = divFac.Divisions.Select(x => x.DivisionName).ToArray();
                     API.triggerClientEvent(sender, "ShowDivs", string.Join(",", divs));
                     break;
-                    
+
+                case "NewDivision":
+                    var facname = (string) arguments[0];
+                    var divname = (string) arguments[1];
+                    var newdivFac = dbContext.Factions.Single(x => x.FactionName == facname);
+                    var existDiv = newdivFac.Divisions.SingleOrDefault(x => x.DivisionName == divname);
+                    if (existDiv == null)
+                    {
+                        newdivFac.Divisions.Add(new Division() {DivisionName = divname});
+                        API.sendChatMessageToPlayer(sender,
+                            $"Division ~r~{arguments[1]}~w~ was sucessfully saved to ~r~{facname}~w~.");
+                        API.triggerClientEvent(sender, "DivisionSaved", facname, divname);
+                    }
+                    else
+                        API.sendChatMessageToPlayer(sender, $"Division with that name already exists in faction ~r~{facname}~w~.");
+                    break;
+
+                case "EditDivision":
+                    var edfacName = (string)arguments[0];
+                    var edDivOldName = (string)arguments[1];
+                    var edDivNewName = (string)arguments[2];
+                    var edFac = dbContext.Factions.Single(x => x.FactionName == edfacName);
+                    var edMakeSureDoesntExist = edFac.Divisions.SingleOrDefault(x => x.DivisionName == edDivNewName);
+                    if (edMakeSureDoesntExist == null)
+                    {
+                        edFac.Divisions.Single(x => x.DivisionName == edDivOldName).DivisionName = edDivNewName;
+                        API.triggerClientEvent(sender, "DivisionEdited", edfacName, edDivOldName, edDivNewName);
+                        API.sendChatMessageToPlayer(sender, $"The div ~r~{edDivOldName}~w~ was renamed to ~r~{edDivNewName}~w~ from the faction ~r~{edfacName}~w~.");
+                    }
+                    else
+                        API.sendChatMessageToPlayer(sender, "Division with that name already exists.");
+                    break;
             }
             dbContext.SaveChanges();
         }

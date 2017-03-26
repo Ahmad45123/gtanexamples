@@ -8,7 +8,7 @@
         $(document).ready(function() {
             resourceCall("documentLoaded");
 
-            //Events.
+            //Events for factions.
             $("#FactionsList").on("click", ".list-group-item", function (event) {
                 //Set current as active.
                 $("#FactionsList li").removeClass("active");
@@ -19,6 +19,7 @@
                 $("#EditFactionButton").prop("disabled", false);
                 $("#NewDivisionText").prop("disabled", false);
                 $("#SaveDivisionButton").prop("disabled", false);
+                $("ul#DivisionList").empty();
 
                 //Get all the divs for this faction.
                 var faction = $('ul#FactionsList').find('li.active').text();
@@ -37,7 +38,7 @@
                 $("ul#DivisionList").empty();
             });
 
-            var isEditingFaction;
+            var isEditingFaction = false;
             var oldFacName;
             $("#EditFactionButton").click(function () {
                 var faction = $('ul#FactionsList').find('li.active').text();
@@ -48,7 +49,7 @@
             });
 
             $("#SaveFactionButton").click(function () {
-                if (isEditingFaction == false) {
+                if (isEditingFaction === false) {
                     var factionName = $("#NewFactionText").val();
                     resourceEval(`API.triggerServerEvent("NewFaction", '${factionName}');`);
                 } else {
@@ -57,14 +58,54 @@
                     isEditingFaction = false;
                 }
             });
+            
+
+            //Events for divisions.
+            $("#DivisionList").on("click", ".list-group-item", function (event) {
+                //Set current as active.
+                $("#DivisionList li").removeClass("active");
+                $(this).addClass("active");
+
+                //Enable buttons
+                $("#DeleteDivisionButton").prop("disabled", false);
+                $("#EditDivisionButton").prop("disabled", false);
+            });
+
+            var isEditingDivision = false;
+            var oldDivName;
+            var divFac;
+            $("#EditDivisionButton").click(function () {
+                var div = $('ul#DivisionList').find('li.active').text();
+                $("#NewDivisionText").val(div);
+                isEditingDivision = true;
+                oldDivName = div;
+                divFac = $('ul#FactionsList').find('li.active').text();
+                resourceEval("API.sendChatMessage('Use the new division textbox and button to edit this division.');");
+            });
+
+            $("#SaveDivisionButton").click(function () {
+                if (isEditingDivision === false) {
+                    var divName = $("#NewDivisionText").val();
+                    var facName = $('ul#FactionsList').find('li.active').text();
+                    resourceEval(`API.triggerServerEvent("NewDivision", '${facName}', '${divName}');`);
+
+                } else {
+                    var newDivName = $("#NewDivisionText").val();
+                    resourceEval(`API.triggerServerEvent("EditDivision", '${divFac}', '${oldDivName}', '${newDivName}');`);
+                    isEditingDivision = false;
+                }
+            });
         });
 
         //functions that will be called from the clientside script.
         function loadFactions(facs) {
             var array = facs.split(',');
-            $.each(array, function (i, val) {
-                $("#FactionsList").append(`<li class='list-group-item'>${val}</li>`);
-            });
+            if (array.length !== 1 && array[0] !== "") {
+                $.each(array,
+                    function(i, val) {
+                        $("#FactionsList").append(`<li class='list-group-item'>${val}</li>`);
+                    });
+            }
         }
 
         function FactionSaved(factionName) {
@@ -77,9 +118,24 @@
 
         function ShowDivs(divs) {
             var array = divs.split(',');
-            $.each(array, function (i, val) {
-                $("#DivisionList").append(`<li class='list-group-item'>${val}</li>`);
-            });
+            if (array.length !== 1 && array[0] !== "") {
+                $.each(array,
+                    function(i, val) {
+                        $("#DivisionList").append(`<li class='list-group-item'>${val}</li>`);
+                    });
+            }
+        }
+
+        function DivisionSaved(fac, div) {
+            if ($('ul#FactionsList').find('li.active').text() === fac) {
+                $("#DivisionList").append(`<li class='list-group-item'>${div}</li>`);
+            }
+        }
+
+        function DivisionEdited(fac, olddiv, newdiv) {
+            if ($('ul#FactionsList').find('li.active').text() === fac) {
+                $('#DivisionList li:contains("' + olddiv + '")').text(newdiv);
+            }
         }
     </script>
 </head>

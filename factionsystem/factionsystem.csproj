@@ -71,7 +71,7 @@
     <None Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="ClientSide\manageFactions.ts" />
+    <Content Include="ClientSide\manageFactions.js" />
     <TypeScriptCompile Include="types-gtanetwork\Declarations.d.ts" />
     <TypeScriptCompile Include="types-gtanetwork\Enums.ts" />
     <TypeScriptCompile Include="types-gtanetwork\GTANetwork.dll.d.ts" />
