@@ -18,6 +18,17 @@
                 $("#DeleteFactionButton").prop("disabled", false);
                 $("#EditFactionButton").prop("disabled", false);
             });
+
+            $("#DeleteFactionButton").click(function() {
+                var faction = $('ul#FactionsList').find('li.active').text();
+                resourceEval(`API.triggerServerEvent("deleteFaction", '${faction}');`);
+                $('ul#FactionsList').find('li.active').remove();
+            });
+
+            $("#SaveFactionButton").click(function() {
+                var factionName = $("#NewFactionText").val();
+                resourceEval(`API.triggerServerEvent("NewFaction", '${factionName}');`);
+            });
         });
 
         //functions that will be called from the clientside script.

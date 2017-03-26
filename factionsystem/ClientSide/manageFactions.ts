@@ -5,7 +5,7 @@ API.onServerEventTrigger.connect((eventName, args) => {
     switch (eventName) {
         case 'showmanagefaction':
             showCefWindow("ClientSide/manageFactions.html");
-        break;
+            break;
     }
     latestArgs = args; //We will always take a copy of latest sent args.
 });

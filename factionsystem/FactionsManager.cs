@@ -17,7 +17,17 @@ namespace factionsystem
 
         private void API_onClientEventTrigger(Client sender, string eventName, params object[] arguments)
         {
-            throw new NotImplementedException();
+            var dbContext = new FactionsDbContext();
+            switch (eventName)
+            {
+                case "deleteFaction":
+                    var faction = (string)arguments[0];
+                    var fac = dbContext.Factions.SingleOrDefault(x => x.FactionName == faction);
+                    if (fac == null) break;
+                    dbContext.Factions.Remove(fac);
+                    API.sendChatMessageToPlayer(sender, $"Faction ~r~'{faction}'~w~ was deleted.");
+                    break;
+            dbContext.SaveChanges();
         }
 
         [Command("managefactions")]
