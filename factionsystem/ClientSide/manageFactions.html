@@ -7,6 +7,16 @@
     <script>
         $(document).ready(function() {
             resourceCall("documentLoaded");
+
+            //Events.
+            $("#FactionsList").on("click", ".list-group-item", function (event) {
+                //Set current as active.
+                $("#FactionsList li").removeClass("active");
+                $(this).addClass("active");
+
+                //Enable buttons
+                $("#DeleteFactionButton").prop("disabled", false);
+            });
         });
 
         //functions that will be called from the clientside script.
