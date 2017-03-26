@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminCommands.cs" />
+    <Compile Include="FactionsManager.cs" />
     <Compile Include="CheckForCommandPerm.cs" />
     <Compile Include="FactionCommandAttribute.cs" />
     <Compile Include="Db\DbModels.cs" />
@@ -71,6 +71,7 @@
     <None Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ClientSide\manageFactions.ts" />
     <TypeScriptCompile Include="types-gtanetwork\Declarations.d.ts" />
     <TypeScriptCompile Include="types-gtanetwork\Enums.ts" />
     <TypeScriptCompile Include="types-gtanetwork\GTANetwork.dll.d.ts" />
@@ -83,8 +84,13 @@
     <TypeScriptCompile Include="types-gtanetwork\Xilium.CefGlue.dll.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientSide\lib\bootstrap.min.css" />
+    <Content Include="ClientSide\lib\bootstrap.min.js" />
+    <Content Include="ClientSide\lib\jquery-3.2.0.min.js" />
+    <Content Include="ClientSide\manageFactions.html" />
     <Content Include="meta.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

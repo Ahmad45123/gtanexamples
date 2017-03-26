@@ -1,9 +1,16 @@
 ﻿<meta>
 	<info name="factionsystem" description="Simple Faction System." author="Ahmed Mamdouh" type="gamemode" />
 	
-  <!-- Server Side Stuff: -->
-  <script src="bin/Debug/factionsystem.dll" type="server" lang="compiled" />
+	<!-- Server Side Stuff: -->
+	<script src="bin/Debug/factionsystem.dll" type="server" lang="compiled" />
 
-  <!-- Client Side Stuff: -->
+	<assembly ref="EntityFramework.dll" />
+	<assembly ref="EntityFramework.SqlServer.dll" />	
 	
+	<!-- Client Side Stuff: -->
+	<script src="ClientSide/manageFactions.js" type="client" lang="javascript" />
+	<file src="ClientSide/lib/bootstrap.min.css" />
+	<file src="ClientSide/lib/bootstrap.min.js" />
+	<file src="ClientSide/lib/jquery-3.2.0.min.js" />
+	<file src="ClientSide/manageFactions.html" />
 </meta>
