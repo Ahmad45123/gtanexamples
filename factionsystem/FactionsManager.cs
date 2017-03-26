@@ -20,7 +20,7 @@ namespace factionsystem
             var dbContext = new FactionsDbContext();
             switch (eventName)
             {
-                case "deleteFaction":
+                case "DeleteFaction":
                     var faction = (string)arguments[0];
                     var fac = dbContext.Factions.SingleOrDefault(x => x.FactionName == faction);
                     if (fac == null) break;
@@ -56,7 +56,7 @@ namespace factionsystem
                         API.sendChatMessageToPlayer(sender, "Faction with that name already exists.");
                     break;
 
-                case "getDivsForFaction":
+                case "GetDivsForFaction":
                     var getDivFac = (string) arguments[0];
                     var divFac = dbContext.Factions.Single(x => x.FactionName == getDivFac);
                     string[] divs = divFac.Divisions.Select(x => x.DivisionName).ToArray();
@@ -93,6 +93,15 @@ namespace factionsystem
                     }
                     else
                         API.sendChatMessageToPlayer(sender, "Division with that name already exists.");
+                    break;
+
+                case "DeleteDivison":
+                    var dvfacName = (string)arguments[0];
+                    var dvdivName = (string)arguments[1];
+                    var dvFac = dbContext.Factions.Single(x => x.FactionName == dvfacName);
+                    var dvDiv = dvFac.Divisions.Single(x => x.DivisionName == dvdivName);
+                    dvFac.Divisions.Remove(dvDiv);
+                    API.sendChatMessageToPlayer(sender, $"Division ~r~{dvdivName}~w~ was sucessfully deleted from faction ~r~{dvfacName}~w~.");
                     break;
             }
             dbContext.SaveChanges();

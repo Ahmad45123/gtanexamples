@@ -23,12 +23,12 @@
 
                 //Get all the divs for this faction.
                 var faction = $('ul#FactionsList').find('li.active').text();
-                resourceEval(`API.triggerServerEvent("getDivsForFaction", '${faction}');`);
+                resourceEval(`API.triggerServerEvent("GetDivsForFaction", '${faction}');`);
             });
 
             $("#DeleteFactionButton").click(function() {
                 var faction = $('ul#FactionsList').find('li.active').text();
-                resourceEval(`API.triggerServerEvent("deleteFaction", '${faction}');`);
+                resourceEval(`API.triggerServerEvent("DeleteFaction", '${faction}');`);
                 $('ul#FactionsList').find('li.active').remove();
 
                 $("#DeleteFactionButton").prop("disabled", true);
@@ -69,6 +69,16 @@
                 //Enable buttons
                 $("#DeleteDivisionButton").prop("disabled", false);
                 $("#EditDivisionButton").prop("disabled", false);
+            });
+
+            $("#DeleteDivisionButton").click(function () {
+                var div = $('ul#DivisionList').find('li.active').text();
+                var fac = $('ul#FactionsList').find('li.active').text();
+                resourceEval(`API.triggerServerEvent("DeleteDivison", '${fac}', '${div}');`);
+                $('ul#DivisionList').find('li.active').remove();
+
+                $("#DeleteDivisionButton").prop("disabled", true);
+                $("#EditDivisionButton").prop("disabled", true);
             });
 
             var isEditingDivision = false;
