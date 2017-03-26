@@ -25,9 +25,25 @@
                 $('ul#FactionsList').find('li.active').remove();
             });
 
-            $("#SaveFactionButton").click(function() {
-                var factionName = $("#NewFactionText").val();
-                resourceEval(`API.triggerServerEvent("NewFaction", '${factionName}');`);
+            var isEditingFaction;
+            var oldFacName;
+            $("#EditFactionButton").click(function () {
+                var faction = $('ul#FactionsList').find('li.active').text();
+                $("#NewFactionText").val(faction);
+                isEditingFaction = true;
+                oldFacName = faction;
+                resourceEval("API.sendChatMessage('Use the new faction textbox and button to edit this faction.');");
+            });
+
+            $("#SaveFactionButton").click(function () {
+                if (isEditingFaction == false) {
+                    var factionName = $("#NewFactionText").val();
+                    resourceEval(`API.triggerServerEvent("NewFaction", '${factionName}');`);
+                } else {
+                    var newFacName = $("#NewFactionText").val();
+                    resourceEval(`API.triggerServerEvent("EditFaction", '${oldFacName}', '${newFacName}');`);
+                    isEditingFaction = false;
+                }
             });
         });
 
@@ -41,6 +57,10 @@
 
         function FactionSaved(factionName) {
             $("#FactionsList").append(`<li class='list-group-item'>${factionName}</li>`);
+        }
+
+        function FactionEdited(oldName, newName) {
+            $('#FactionsList li:contains("' + oldName + '")').text(newName);
         }
     </script>
 </head>

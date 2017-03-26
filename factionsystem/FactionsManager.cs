@@ -41,6 +41,19 @@ namespace factionsystem
                     else
                         API.sendChatMessageToPlayer(sender, "Faction with that name already exists.");
                     break;
+                case "EditFaction":
+                    var oldName = (string)arguments[0];
+                    var newName = (string)arguments[1];
+                    var makeSureDoesntExist = dbContext.Factions.SingleOrDefault(x => x.FactionName == newName);
+                    if (makeSureDoesntExist == null)
+                    {
+                        dbContext.Factions.Single(x => x.FactionName == oldName).FactionName = newName;
+                        API.triggerClientEvent(sender, "FactionEdited", oldName, newName);
+                        API.sendChatMessageToPlayer(sender, $"Faction ~r~{oldName}~w~ was renamed to ~r~{newName}~w~.");
+                    }
+                    else
+                        API.sendChatMessageToPlayer(sender, "Faction with that name already exists.");
+                    break;
             }
             dbContext.SaveChanges();
         }

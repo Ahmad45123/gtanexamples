@@ -9,6 +9,9 @@ API.onServerEventTrigger.connect((eventName, args) => {
         case 'FactionSaved':
             browser.call("FactionSaved", args[0]);
             break;
+        case 'FactionEdited':
+            browser.call("FactionEdited", args[0], args[1]);
+            break;
     }
     latestArgs = args; //We will always take a copy of latest sent args.
 });
