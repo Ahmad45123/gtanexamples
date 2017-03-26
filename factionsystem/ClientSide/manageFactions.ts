@@ -23,3 +23,9 @@ function showCefWindow(path: string) {
     API.showCursor(true);
     API.setCanOpenChat(false);
 }
+
+//Events that will get called from the managefactions.html.
+function documentLoaded() {
+    //We wanna populate the list with all the available factions.
+    browser.call("loadFactions", latestArgs[0]); //This should be a comma list of factions.
+}

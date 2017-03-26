@@ -6,8 +6,16 @@
     <script src="lib/jquery-3.2.0.min.js"></script>
     <script>
         $(document).ready(function() {
-
+            resourceCall("documentLoaded");
         });
+
+        //functions that will be called from the clientside script.
+        function loadFactions(facs) {
+            var array = facs.split(',');
+            $.each(array, function (i, val) {
+                $("#FactionsList").append(`<li class='list-group-item'>${val}</li>`);
+            });
+        }
     </script>
 </head>
 <body>
