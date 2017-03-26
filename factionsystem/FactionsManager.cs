@@ -54,6 +54,12 @@ namespace factionsystem
                     else
                         API.sendChatMessageToPlayer(sender, "Faction with that name already exists.");
                     break;
+                case "getDivsForFaction":
+                    var divFac = dbContext.Factions.Single(x => x.FactionName == (string)arguments[0]);
+                    string[] divs = divFac.Divisions.Select(x => x.DivisionName).ToArray();
+                    API.triggerClientEvent(sender, "ShowDivs", string.Join(",", divs));
+                    break;
+                    
             }
             dbContext.SaveChanges();
         }

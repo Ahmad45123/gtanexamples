@@ -17,12 +17,24 @@
                 //Enable buttons
                 $("#DeleteFactionButton").prop("disabled", false);
                 $("#EditFactionButton").prop("disabled", false);
+                $("#NewDivisionText").prop("disabled", false);
+                $("#SaveDivisionButton").prop("disabled", false);
+
+                //Get all the divs for this faction.
+                var faction = $('ul#FactionsList').find('li.active').text();
+                resourceEval(`API.triggerServerEvent("getDivsForFaction", '${faction}');`);
             });
 
             $("#DeleteFactionButton").click(function() {
                 var faction = $('ul#FactionsList').find('li.active').text();
                 resourceEval(`API.triggerServerEvent("deleteFaction", '${faction}');`);
                 $('ul#FactionsList').find('li.active').remove();
+
+                $("#DeleteFactionButton").prop("disabled", true);
+                $("#EditFactionButton").prop("disabled", true);
+                $("#NewDivisionText").prop("disabled", true);
+                $("#SaveDivisionButton").prop("disabled", true);
+                $("ul#DivisionList").empty();
             });
 
             var isEditingFaction;
@@ -61,6 +73,13 @@
 
         function FactionEdited(oldName, newName) {
             $('#FactionsList li:contains("' + oldName + '")').text(newName);
+        }
+
+        function ShowDivs(divs) {
+            var array = divs.split(',');
+            $.each(array, function (i, val) {
+                $("#DivisionList").append(`<li class='list-group-item'>${val}</li>`);
+            });
         }
     </script>
 </head>
