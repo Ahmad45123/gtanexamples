@@ -6,6 +6,9 @@ API.onServerEventTrigger.connect((eventName, args) => {
         case 'showmanagefaction':
             showCefWindow("ClientSide/manageFactions.html");
             break;
+        case 'FactionSaved':
+            browser.call("FactionSaved", args[0]);
+            break;
     }
     latestArgs = args; //We will always take a copy of latest sent args.
 });

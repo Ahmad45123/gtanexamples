@@ -38,45 +38,49 @@
                 $("#FactionsList").append(`<li class='list-group-item'>${val}</li>`);
             });
         }
+
+        function FactionSaved(factionName) {
+            $("#FactionsList").append(`<li class='list-group-item'>${factionName}</li>`);
+        }
     </script>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-4" style="margin-top: 10px;">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="New faction..." id="NewFactionText">
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button" id="SaveFactionButton">Save Faction</button>
-                    </span>
-                </div>
-                <ul class="list-group" id="FactionsList" style="border: solid lightgray 1px; height: 200px; margin-top: 10px; margin-bottom: 10px; overflow: scroll;">
-                    <!-- Items to be added here. -->
-                </ul>
-                <button type="submit" class="btn btn-primary" id="DeleteFactionButton" disabled>Delete Faction</button>
-                <button type="submit" class="btn btn-primary" id="EditFactionButton"  disabled>Edit Faction</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4" style="margin-top: 10px;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="New faction..." id="NewFactionText">
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button" id="SaveFactionButton">Save Faction</button>
+                </span>
             </div>
-            <div class="col-md-4" style="margin-top: 10px;">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="New division..." id="NewDivisionText" disabled>
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button" id="SaveDivisionButton" disabled>Save Division</button>
-                    </span>
-                </div>
-                <ul class="list-group" id="DivisionList" style="border: solid lightgray 1px; height: 200px; margin-top: 10px; margin-bottom: 10px; overflow: scroll;">
-                    <!-- Items to be added here. -->
-                </ul>
-                <button type="submit" class="btn btn-primary" id="DeleteDivisionButton" disabled>Delete Division</button>
-                <button type="submit" class="btn btn-primary" id="EditDivisionButton" disabled>Edit Division</button>
+            <ul class="list-group" id="FactionsList" style="border: solid lightgray 1px; height: 200px; margin-top: 10px; margin-bottom: 10px; overflow: scroll;">
+                <!-- Items to be added here. -->
+            </ul>
+            <button type="submit" class="btn btn-primary" id="DeleteFactionButton" disabled>Delete Faction</button>
+            <button type="submit" class="btn btn-primary" id="EditFactionButton" disabled>Edit Faction</button>
+        </div>
+        <div class="col-md-4" style="margin-top: 10px;">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="New division..." id="NewDivisionText" disabled>
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button" id="SaveDivisionButton" disabled>Save Division</button>
+                </span>
             </div>
-            <div class="col-md-4" style="margin-top: 10px;">
-                <p>Available Commands: </p>
-                <select multiple style="height: 210px; width: 250px; margin-bottom: 10px;" disabled>
-                    <!-- Commands to be here-->
-                </select>
-                <button type="submit" class="btn btn-primary" id="SaveDivisionCommands" disabled>Save Commands</button>
-            </div>
+            <ul class="list-group" id="DivisionList" style="border: solid lightgray 1px; height: 200px; margin-top: 10px; margin-bottom: 10px; overflow: scroll;">
+                <!-- Items to be added here. -->
+            </ul>
+            <button type="submit" class="btn btn-primary" id="DeleteDivisionButton" disabled>Delete Division</button>
+            <button type="submit" class="btn btn-primary" id="EditDivisionButton" disabled>Edit Division</button>
+        </div>
+        <div class="col-md-4" style="margin-top: 10px;">
+            <p>Available Commands: </p>
+            <select multiple style="height: 210px; width: 250px; margin-bottom: 10px;" disabled>
+                <!-- Commands to be here-->
+            </select>
+            <button type="submit" class="btn btn-primary" id="SaveDivisionCommands" disabled>Save Commands</button>
         </div>
     </div>
+</div>
 </body>
 </html>

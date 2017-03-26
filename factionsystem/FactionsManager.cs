@@ -27,6 +27,21 @@ namespace factionsystem
                     dbContext.Factions.Remove(fac);
                     API.sendChatMessageToPlayer(sender, $"Faction ~r~'{faction}'~w~ was deleted.");
                     break;
+
+                case "NewFaction":
+                    var factionName = (string) arguments[0];
+                    var existFac = dbContext.Factions.SingleOrDefault(x => x.FactionName == factionName);
+                    if (existFac == null)
+                    {
+                        Faction newFac = new Faction {FactionName = factionName};
+                        dbContext.Factions.Add(newFac);
+                        API.triggerClientEvent(sender, "FactionSaved", factionName);
+                        API.sendChatMessageToPlayer(sender, $"Faction with name ~r~{factionName}~w~ was successfully created.");
+                    }
+                    else
+                        API.sendChatMessageToPlayer(sender, "Faction with that name already exists.");
+                    break;
+            }
             dbContext.SaveChanges();
         }
 
