@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="lib/bootstrap.min.css" />
     <script src="lib/jquery-3.2.0.min.js"></script>
     <script>
-        
+        $(document).ready(function() {
+
+        });
     </script>
 </head>
 <body>
@@ -21,28 +23,28 @@
                 <ul class="list-group" id="FactionsList" style="border: solid lightgray 1px; height: 200px; margin-top: 10px; margin-bottom: 10px; overflow: scroll;">
                     <!-- Items to be added here. -->
                 </ul>
-                <button type="submit" class="btn btn-primary" id="DeleteFactionButton">Delete Faction</button>
-                <button type="submit" class="btn btn-primary" id="EditFactionButton">Edit Faction</button>
+                <button type="submit" class="btn btn-primary" id="DeleteFactionButton" disabled>Delete Faction</button>
+                <button type="submit" class="btn btn-primary" id="EditFactionButton"  disabled>Edit Faction</button>
             </div>
             <div class="col-md-4" style="margin-top: 10px;">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="New division..." id="NewDivisionText">
+                    <input type="text" class="form-control" placeholder="New division..." id="NewDivisionText" disabled>
                     <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button" id="SaveDivisionButton">Save Division</button>
+                        <button class="btn btn-secondary" type="button" id="SaveDivisionButton" disabled>Save Division</button>
                     </span>
                 </div>
                 <ul class="list-group" id="DivisionList" style="border: solid lightgray 1px; height: 200px; margin-top: 10px; margin-bottom: 10px; overflow: scroll;">
                     <!-- Items to be added here. -->
                 </ul>
-                <button type="submit" class="btn btn-primary" id="DeleteDivisionButton">Delete Division</button>
-                <button type="submit" class="btn btn-primary" id="EditDivisionButton">Edit Division</button>
+                <button type="submit" class="btn btn-primary" id="DeleteDivisionButton" disabled>Delete Division</button>
+                <button type="submit" class="btn btn-primary" id="EditDivisionButton" disabled>Edit Division</button>
             </div>
             <div class="col-md-4" style="margin-top: 10px;">
                 <p>Available Commands: </p>
-                <select multiple style="height: 210px; width: 250px; margin-bottom: 10px;">
+                <select multiple style="height: 210px; width: 250px; margin-bottom: 10px;" disabled>
                     <!-- Commands to be here-->
                 </select>
-                <button type="submit" class="btn btn-primary" id="SaveDivisionCommands">Save Commands</button>
+                <button type="submit" class="btn btn-primary" id="SaveDivisionCommands" disabled>Save Commands</button>
             </div>
         </div>
     </div>
