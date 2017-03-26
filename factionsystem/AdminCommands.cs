@@ -8,9 +8,9 @@ using GTANetworkServer;
 
 namespace factionsystem
 {
-    class AdminCommands
+    class AdminCommands : Script
     {
-        [Command("createfaction", ACLRequired = true, GreedyArg = true)]
+        [Command("createfaction", GreedyArg = true)]
         public void CreateFaction(Client player, string factionName)
         {
             var dbContext = new FactionsDbContext();
@@ -20,10 +20,12 @@ namespace factionsystem
                 Faction fac = new Faction() {FactionName = factionName};
                 dbContext.Factions.Add(fac);
                 dbContext.SaveChanges();
-                API.shared.sendChatMessageToPlayer(player, $"Faction with name \"{factionName}\" was sucessfully created.");
+                API.sendChatMessageToPlayer(player, $"Faction with name \"{factionName}\" was sucessfully created.");
             }
             else
-             API.shared.sendChatMessageToPlayer(player, "Faction with that name already exists.");
+             API.sendChatMessageToPlayer(player, "Faction with that name already exists.");
+        }
+
         }
     }
 }

@@ -9,11 +9,11 @@ using GTANetworkServer;
 
 namespace factionsystem
 {
-    class CheckForCommandPerm
+    class CheckForCommandPerm : Script
     {
         public CheckForCommandPerm()
         {
-            API.shared.onChatCommand += Shared_onChatCommand;
+            API.onChatCommand += Shared_onChatCommand;
         }
 
         private void Shared_onChatCommand(Client sender, string command, CancelEventArgs cancel)

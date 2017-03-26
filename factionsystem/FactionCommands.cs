@@ -7,25 +7,25 @@ using GTANetworkServer;
 
 namespace factionsystem
 {
-    class FactionCommands
+    class FactionCommands : Script
     {
         //Commands that are faction and can be assigned will be here.
         [Command("one"), FactionCommand]
         public void OneCommand(Client player)
         {
-            API.shared.sendChatMessageToPlayer(player, "One Works!");
+            API.sendChatMessageToPlayer(player, "One Works!");
         }
 
         [Command("two"), FactionCommand]
         public void TwoCommand(Client player)
         {
-            API.shared.sendChatMessageToPlayer(player, "Two Works!");
+            API.sendChatMessageToPlayer(player, "Two Works!");
         }
 
         [Command("three"), FactionCommand]
         public void ThreeCommand(Client player)
         {
-            API.shared.sendChatMessageToPlayer(player, "Three Works!");
+            API.sendChatMessageToPlayer(player, "Three Works!");
         }
     }
 }
