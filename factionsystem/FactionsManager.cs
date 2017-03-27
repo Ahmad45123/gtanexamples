@@ -100,7 +100,7 @@ namespace factionsystem
                     var dvdivName = (string)arguments[1];
                     var dvFac = dbContext.Factions.Single(x => x.FactionName == dvfacName);
                     var dvDiv = dvFac.Divisions.Single(x => x.DivisionName == dvdivName);
-                    dvFac.Divisions.Remove(dvDiv);
+                    dbContext.Divisions.Remove(dvDiv);
                     API.sendChatMessageToPlayer(sender, $"Division ~r~{dvdivName}~w~ was sucessfully deleted from faction ~r~{dvfacName}~w~.");
                     break;
             }
