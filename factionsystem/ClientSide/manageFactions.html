@@ -11,7 +11,7 @@
             //Events for factions.
             $("#FactionsList").on("click", ".list-group-item", function (event) {
                 //Set current as active.
-                $("#FactionsList li").removeClass("active");
+                $('ul#FactionsList').find('li.active').removeClass("active");
                 $(this).addClass("active");
 
                 //Enable buttons
@@ -19,10 +19,9 @@
                 $("#EditFactionButton").prop("disabled", false);
                 $("#NewDivisionText").prop("disabled", false);
                 $("#SaveDivisionButton").prop("disabled", false);
-                $("ul#DivisionList").empty();
 
                 //Get all the divs for this faction.
-                var faction = $('ul#FactionsList').find('li.active').text();
+                var faction = $(this).text();
                 resourceEval(`API.triggerServerEvent("GetDivsForFaction", '${faction}');`);
             });
 
@@ -135,6 +134,7 @@
         }
 
         function ShowDivs(divs) {
+            $("ul#DivisionList").empty();
             var array = divs.split(',');
             if (array.length !== 1 && array[0] !== "") {
                 $.each(array,
