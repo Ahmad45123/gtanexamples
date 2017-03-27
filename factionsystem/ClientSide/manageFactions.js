@@ -26,5 +26,5 @@ function showCefWindow(path) {
 //Events that will get called from the managefactions.html.
 function documentLoaded() {
     //We wanna populate the list with all the available factions.
-    browser.call("loadFactions", factionsList[0]); //This should be a comma list of factions.
+    browser.call("loadFactions", factionsList[0], factionsList[1]); //This should be a comma list of factions.
 }

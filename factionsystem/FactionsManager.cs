@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using factionsystem.Db;
@@ -114,8 +116,17 @@ namespace factionsystem
             var dbContext = new FactionsDbContext();
             string[] facs = dbContext.Factions.Select(x => x.FactionName).ToArray();
 
+            //Get all commands.
+            CommandAttribute[] factionMethods = Assembly.GetExecutingAssembly().GetTypes()
+                      .Where(x => x.BaseType == typeof(Script))
+                      .SelectMany(t => t.GetMethods())
+                      .Where(m => m.GetCustomAttributes(typeof(FactionCommandAttribute), false).Length > 0)
+                      .Select(y => (CommandAttribute)y.GetCustomAttributes(typeof(CommandAttribute)).First())
+                      .ToArray();
+            string[] cmds = factionMethods.Select(x => x.CommandString).ToArray();
+
             //Trigger the event of creating the div.
-            API.triggerClientEvent(player, "showmanagefaction", string.Join(",", facs));
+            API.triggerClientEvent(player, "showmanagefaction", string.Join(",", facs), string.Join(",", cmds));
         }
     }
 }
