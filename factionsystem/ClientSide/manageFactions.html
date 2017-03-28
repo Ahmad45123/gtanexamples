@@ -120,6 +120,10 @@
                 //Save them.
                 resourceEval(`API.triggerServerEvent("SaveCmds", '${fac}', '${div}', '${cmdList}');`);
             });
+
+            $("#ExitButton").click(function () {
+                resourceCall("exitCefWindow");
+            });
         });
 
         //functions that will be called from the clientside script.
@@ -194,6 +198,7 @@
 <body>
 <div class="container-fluid">
     <div class="row">
+        <button type="submit" class="btn btn-danger" id="ExitButton" style="position: absolute; top: 10px; right: 10px;">Exit</button>
         <div class="col-md-4" style="margin-top: 10px;">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="New faction..." id="NewFactionText">

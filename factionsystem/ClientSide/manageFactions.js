@@ -23,6 +23,12 @@ function showCefWindow(path) {
     API.setCanOpenChat(false);
 }
 
+function exitCefWindow() {
+    API.destroyCefBrowser(browser);
+    API.showCursor(false);
+    API.setCanOpenChat(true);
+}
+
 //Events that will get called from the managefactions.html.
 function documentLoaded() {
     //We wanna populate the list with all the available factions.
