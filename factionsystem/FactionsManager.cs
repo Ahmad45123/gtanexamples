@@ -105,6 +105,14 @@ namespace factionsystem
                     dbContext.Divisions.Remove(dvDiv);
                     API.sendChatMessageToPlayer(sender, $"Division ~r~{dvdivName}~w~ was sucessfully deleted from faction ~r~{dvfacName}~w~.");
                     break;
+
+                case "GetDivisionCommands":
+                    var gdcfacName = (string)arguments[0];
+                    var gdcdivName = (string)arguments[1];
+                    var gdcFac = dbContext.Factions.Single(x => x.FactionName == gdcfacName);
+                    var gdcDiv = gdcFac.Divisions.Single(x => x.DivisionName == gdcdivName);
+                    API.triggerClientEvent(sender, "SelectCommandsForDivision", gdcfacName, gdcdivName, gdcDiv.Commands);
+                    break;
             }
             dbContext.SaveChanges();
         }

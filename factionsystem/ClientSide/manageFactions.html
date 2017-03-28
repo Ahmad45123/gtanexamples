@@ -68,6 +68,10 @@
                 //Enable buttons
                 $("#DeleteDivisionButton").prop("disabled", false);
                 $("#EditDivisionButton").prop("disabled", false);
+
+                //Get the used commands.
+                var fac = $('ul#FactionsList').find('li.active').text();
+                resourceEval(`API.triggerServerEvent("GetDivisionCommands", '${fac}', '${$(this).text}');`);
             });
 
             $("#DeleteDivisionButton").click(function () {
@@ -153,6 +157,21 @@
         function DivisionEdited(fac, olddiv, newdiv) {
             if ($('ul#FactionsList').find('li.active').text() === fac) {
                 $('#DivisionList li:contains("' + olddiv + '")').text(newdiv);
+            }
+        }
+
+        function SelectCommandsForDivision(fac, div, cmds) {
+            if ($('ul#FactionsList').find('li.active').text() === fac && $('ul#DivisionList').find('li.active').text() === div) {
+                //First we wanna remove all selected commands.
+                $('#CommandsList option').attr('selected', false);
+
+                var array = cmds.split(',');
+                if (array[0]) {
+                    $.each(array,
+                    function (i, val) {
+                        $(`#CommandsList option[value='${val}']`).attr('selected', true);
+                    });
+                }
             }
         }
     </script>
