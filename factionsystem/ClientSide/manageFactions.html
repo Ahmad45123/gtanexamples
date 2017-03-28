@@ -110,7 +110,6 @@
         function loadFactions(facs, cmds) {
             var array = facs.split(',');
             if (array[0]) {
-                $("#NewDivisionText").val('WORKS');
                 $.each(array,
                     function(i, val) {
                         $("#FactionsList").append(`<li class='list-group-item'>${val}</li>`);

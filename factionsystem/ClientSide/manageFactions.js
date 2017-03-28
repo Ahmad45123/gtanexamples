@@ -6,7 +6,7 @@ API.onServerEventTrigger.connect((eventName, args) => {
         factionsList = args;
         showCefWindow("ClientSide/manageFactions.html");
     } else
-        browser.call(eventName, ...args); //Event will most likely have a corsponding function in the HTML.
+        browser.call(eventName, args); //Event will most likely have a corsponding function in the HTML.
 });
 
 var browser = null;
