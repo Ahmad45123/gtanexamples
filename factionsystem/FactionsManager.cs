@@ -118,7 +118,6 @@ namespace factionsystem
                     var scfacName = (string)arguments[0];
                     var scdivName = (string)arguments[1];
                     var sccmdList = (string)arguments[2];
-                    API.sendChatMessageToPlayer(sender, $"Commands: ~r~{sccmdList}~w~."); //TODO: remove this.
                     var scFac = dbContext.Factions.Single(x => x.FactionName == scfacName);
                     var scDiv = scFac.Divisions.Single(x => x.DivisionName == scdivName);
                     scDiv.Commands = sccmdList;
