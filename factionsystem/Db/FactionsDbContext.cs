@@ -11,5 +11,10 @@ namespace factionsystem.Db
     {
         public DbSet<Faction> Factions { get; set; }
         public DbSet<Division> Divisions { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public FactionsDbContext() : base("FactionsSystem") //DbName.
+        {
+        }
     }
 }
