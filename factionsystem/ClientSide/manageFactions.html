@@ -84,7 +84,7 @@
                 $("#DeleteDivisionButton").prop("disabled", true);
                 $("#EditDivisionButton").prop("disabled", true);
                 $("#CommandsList").prop("disabled", true);
-                $("#SaveDivisionCommands").prop("disabled", true);
+                $("#SaveDivisionCommand").prop("disabled", true);
             });
 
             var isEditingDivision = false;
@@ -112,18 +112,13 @@
                 }
             });
 
-            $("#SaveDivisionCommands").click(function () {
+            $("#SaveDivisionCommand").click(function () {
                 var div = $('ul#DivisionList').find('li.active').text();
                 var fac = $('ul#FactionsList').find('li.active').text();
-                //Get all selected commands: 
-                var cmds = [];
-                $('#CommandsList :selected').each(function (i, selected) {
-                    cmds[i] = $(selected).text();
-                });
-                var cmdList = cmds.split(',');
+                var cmdList = $("#CommandsList option:selected").map(function () { return this.value }).get().join(",");
 
                 //Save them.
-                resourceEval(`API.triggerServerEvent("SaveCmds", '${div}', '${fac}', '${cmdList}');`);
+                resourceEval(`API.triggerServerEvent("SaveCmds", '${fac}', '${div}', '${cmdList}');`);
             });
         });
 
@@ -179,6 +174,9 @@
 
         function SelectCommandsForDivision(fac, div, cmds) {
             if ($('ul#FactionsList').find('li.active').text() === fac && $('ul#DivisionList').find('li.active').text() === div) {
+                $("#CommandsList").prop("disabled", false);
+                $("#SaveDivisionCommand").prop("disabled", false);
+
                 //First we wanna remove all selected commands.
                 $('#CommandsList option').attr('selected', false);
 
@@ -190,8 +188,6 @@
                     });
                 }
             }
-            $("#CommandsList").prop("disabled", false);
-            $("#SaveDivisionCommands").prop("disabled", false);
         }
     </script>
 </head>
@@ -229,7 +225,7 @@
             <select multiple id="CommandsList" style="height: 210px; width: 250px; margin-bottom: 10px;" disabled>
                 <!-- Commands to be here-->
             </select>
-            <button type="submit" class="btn btn-primary" id="SaveDivisionCommands" disabled>Save Commands</button>
+            <button type="submit" class="btn btn-primary" id="SaveDivisionCommand" disabled>Save Commands</button>
         </div>
     </div>
 </div>

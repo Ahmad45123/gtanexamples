@@ -111,7 +111,7 @@ namespace factionsystem
                     var gdcdivName = (string)arguments[1];
                     var gdcFac = dbContext.Factions.Single(x => x.FactionName == gdcfacName);
                     var gdcDiv = gdcFac.Divisions.Single(x => x.DivisionName == gdcdivName);
-                    API.triggerClientEvent(sender, "SelectCommandsForDivision", gdcfacName, gdcdivName, gdcDiv.Commands);
+                    API.triggerClientEvent(sender, "SelectCommandsForDivision", gdcfacName, gdcdivName, gdcDiv.Commands ?? "");
                     break;
 
                 case "SaveCmds":
