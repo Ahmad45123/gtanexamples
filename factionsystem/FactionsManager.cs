@@ -162,6 +162,7 @@ namespace factionsystem
 
                     //Set user faction.
                     user.Faction = fac;
+                    user.Division = null; //just reset div in case there is old fac.
 
                     //Notify.
                     API.sendChatMessageToPlayer(player, $"You have set the player ~r~{target.name}~w~ to the faction ~r~{fac.FactionName}~w~.");
