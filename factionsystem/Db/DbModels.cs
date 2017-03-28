@@ -46,10 +46,10 @@ namespace factionsystem.Db
         public string Username { get; set; }
 
         [ForeignKey("Faction")]
-        public int FactionId { get; set; }
+        public int? FactionId { get; set; }
 
         [ForeignKey("Division")]
-        public int DivisionId { get; set; }
+        public int? DivisionId { get; set; }
 
         // This will keep track of the faction and div this user belongs too
         public virtual Faction Faction { get; set; }
