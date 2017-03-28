@@ -146,5 +146,107 @@ namespace factionsystem
             //Trigger the event of creating the div.
             API.triggerClientEvent(player, "showmanagefaction", string.Join(",", facs), string.Join(",", cmds));
         }
+
+        [Command("setfaction", GreedyArg = true)]
+        public void SetUserFaction(Client player, Client target, string faction)
+        {
+            using (FactionsDbContext dbContext = new FactionsDbContext())
+            {
+                //Make sure faction exists first.
+                var fac = dbContext.Factions.SingleOrDefault(x => x.FactionName == faction);
+                if (fac != null)
+                {
+                    //Make user object for target ofcourse.
+                    var userName = API.getPlayerName(target);
+                    var user = dbContext.Users.SingleOrDefault(x => x.Username == userName) ??
+                               dbContext.Users.Add(new User() { Username = userName });
+
+                    //Set user faction.
+                    user.Faction = fac;
+
+                    //Notify.
+                    API.sendChatMessageToPlayer(player, $"You have set the player ~r~{target.name}~w~ to the faction ~r~{fac.FactionName}~w~.");
+                    API.sendChatMessageToPlayer(target, $"You have beed set to the faction ~r~{fac.FactionName}~w~.");
+                }
+                else
+                    API.sendChatMessageToPlayer(player, "That faction doesn't exist.");
+
+                //Save any changes.
+                dbContext.SaveChanges();
+            }
+        }
+
+        [Command("setdivision", GreedyArg = true)]
+        public void SetUserDivision(Client player, Client target, string division)
+        {
+            using (FactionsDbContext dbContext = new FactionsDbContext())
+            {
+                //Make user object for target ofcourse.
+                var userName = API.getPlayerName(target);
+                var user = dbContext.Users.SingleOrDefault(x => x.Username == userName) ??
+                           dbContext.Users.Add(new User() { Username = userName });
+
+                //If user does have faction.
+                if (user.Faction != null)
+                {
+                    //Make sure div exists.
+                    var div = user.Faction.Divisions.SingleOrDefault(x => x.DivisionName == division);
+                    if (div != null)
+                    {
+                        //Set user faction.
+                        user.Division = div;
+
+                        //Notify.
+                        API.sendChatMessageToPlayer(player, $"You have set the player ~r~{target.name}~w~ to the division ~r~{div.DivisionName}~w~ in the faction ~r~{user.Faction.FactionName}~w~.");
+                        API.sendChatMessageToPlayer(target, $"You have beed set to the division ~r~{div.DivisionName}~w~ in the faction ~r~{user.Faction.FactionName}~w~.");
+                    }
+                    else
+                        API.sendChatMessageToPlayer(player, $"That division doesn't exist for the faction ~r~{user.Faction.FactionName}~w~.");
+                }
+                else
+                    API.sendChatMessageToPlayer(player, "That user doesn't even have any faction assigned.");
+
+                //Save any changes.
+                dbContext.SaveChanges();
+            }
+        }
+
+        [Command("userinfo")]
+        public void GetUserInfo(Client player, Client target)
+        {
+            using (FactionsDbContext dbContext = new FactionsDbContext())
+            {
+                var userName = API.getPlayerName(target);
+                var user = dbContext.Users.SingleOrDefault(x => x.Username == userName);
+                if (user != null)
+                {
+                    API.sendChatMessageToPlayer(player, $"The user ~r~{target.name}~w~ is in the faction ~r~{user.Faction.FactionName ?? "None"}~w~ and the division ~r~{user.Division.DivisionName ?? "None"}~w~.");
+                }
+                else
+                    API.sendChatMessageToPlayer(player, "That user is not even in DB yet.");
+
+                dbContext.SaveChanges();
+            }
+        }
+
+        [Command("deleteuserfaction")]
+        public void DeleteUserInfo(Client player, Client target)
+        {
+            using (FactionsDbContext dbContext = new FactionsDbContext())
+            {
+                var userName = API.getPlayerName(target);
+                var user = dbContext.Users.SingleOrDefault(x => x.Username == userName);
+                if (user != null)
+                {
+                    user.Faction = null;
+                    user.Division = null;
+                    API.sendChatMessageToPlayer(player, $"Faction info for {target.name} was deleted sucessfully.");
+                }
+                else
+                    API.sendChatMessageToPlayer(player, "That user is not even in DB yet.");
+
+                dbContext.SaveChanges();
+            }
+        }
     }
 }
